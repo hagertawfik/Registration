@@ -16,11 +16,53 @@ if(localStorage.getItem("Ourusers")==null){
 }else{
     users= JSON.parse(localStorage.getItem("Ourusers"));
 }
-
+function matchName(){
+    let regex =/^[A-Za-z]+[0-9]{1,4}$/
+    if(regex.test(signUpname.value)==true){
+        return true
+    }
+    else{
+        return false
+    }
+   
+  }
+function matchEmail(){
+    let regex =/^[A-Za-z]{1,15}[0-9]{1,6}@(gmail|yahoo)\.com$/
+    if(regex.test(signUpemail.value)==true){
+        return true
+    }
+    else{
+        return false
+    }
+   
+  }
+function matchPass(){
+    let regex =/^[A-Za-z]{1,15}[!@#$&_]?[0-9]{1,8}$/
+    if(regex.test(signUppass.value)==true){
+        return true
+    }
+    else{
+        return false
+    }
+   
+  }
+ 
 function signUp(){
     if(EmptySingUpInput() == 0){
         alertMessag.innerHTML ='<span class="text-danger">All inputs is Required</span>'
         return 0
+    }
+    if(matchName()==false){
+        alertMessag.innerHTML ='<span class="text-danger">incorrect Name please enter any charchter then any digit from 1 digit upto 4 digit</span>'
+        return false
+    }
+    if(matchEmail()==false){
+        alertMessag.innerHTML ='<span class="text-danger">incorrect Email  please enter any charchter from 1char upto 15char then any digit from 1 digit upto 6 digit and @gmail or @yahoo .com</span>'
+        return false
+    }
+    if(matchPass()==false){
+        alertMessag.innerHTML ='<span class="text-danger">incorrect password  please enter any charchter from 1char upto 15char then any symbol of these !@#$&_ if you want then any digit from 1 digit upto 6 digit</span>'
+        return false
     }
     let user ={
         name:signUpname.value,
@@ -71,6 +113,7 @@ function signIn(){
         singInMessage.innerHTML ='<span class="text-danger">All inputs is Required</span>'
         return -1
     }
+    
  for (let index = 0; index < users.length; index++) {
     if(signInemail.value.toLowerCase() == users[index].email.toLowerCase() && signInpass.value.toLowerCase() == users[index].pass.toLowerCase()  ){
       localStorage.setItem("currentName",users[index].name);
